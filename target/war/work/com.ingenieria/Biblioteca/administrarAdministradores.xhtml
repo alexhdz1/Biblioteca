@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="plantillaAdministrador.xhtml">
+
+        <ui:define name="titulo">administrarProfesores</ui:define>
+        
+        <style type="text/css">
+            .ui-row-editor .ui-row-editor-pencil {
+                margin-left:8px;
+             }
+        </style>
+
+
+
+
+        <ui:define name="contenido">
+            <center>
+                <h:body>
+
+                    <h:form>              
+                        <h:panelGrid columns= "2">
+            
+                            <h:outputText value = "Nombre" style="color: black" />
+                            <p:inputText id="profesor_nombre"   value ="#{administradorController.administrador.nombre}" />
+                            <h:outputText  value = "Contraseña"  style="color: black "/>
+                            <p:inputText id="profesor_contrasena" value ="#{administradorController.administrador.contrasena}" />
+                            <h:outputText value = "Correo" style="color: black" />
+                            <p:inputText id="porfesor_correo"  value ="#{administradorController.administrador.correo}" />
+                            <h:outputText value = "Numero de trabajador" style="color: black" />
+                            <p:inputText id="porfesor_NumTrabajador"  value ="#{administradorController.administrador.numTrabajador}" />
+
+                     
+                        </h:panelGrid>
+                        <h:commandButton value ="Guardar" class="btn btn-primary my-2 my-sm-0" action="#{administradorController.guardar()}" />                    
+                        <p:dataTable id="datos" value="#{administradorController.getLista()}" var="mat" rendered="true">
+                            
+                            <p:column headerText="Id">
+                                <h:outputText value="#{mat.idadministrador}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{mat.nombre}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Correo">
+                                <h:outputText value="#{mat.correo}"/>
+                            </p:column>
+                           
+                            <p:column headerText="Numero de trabajador">
+                                <h:outputText value="#{mat.numTrabajador}"/>
+                            </p:column>
+                            
+
+                                             
+                        </p:dataTable>                      
+                    </h:form>
+                </h:body>
+            </center> 
+        </ui:define>
+    </ui:composition>
+</html>

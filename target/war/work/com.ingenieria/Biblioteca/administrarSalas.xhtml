@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="plantillaAdministrador.xhtml">
+
+        <ui:define name="titulo">administrarEdificios</ui:define>
+        
+        <style type="text/css">
+            .ui-row-editor .ui-row-editor-pencil {
+                margin-left:8px;
+             }
+        </style>
+
+
+
+
+        <ui:define name="contenido">
+            <center>
+                <h:body>
+
+                    <h:form>              
+                        <h:panelGrid columns= "2">
+                            <h:outputText value = "id Sala" style="color: black "/>
+                            <p:inputText id="idsala" value ="#{salaculturalController.salacultural.idsala}" />
+         
+                            <h:outputText value = "id Edificio" style="color: black "/>
+                            <p:inputText id="idedificio" value ="#{salaculturalController.tmpid}" />
+                            
+                            <h:outputText value = "nombre" style="color: black "/>
+                            <p:inputText id="nombresala" value ="#{salaculturalController.salacultural.nombresala}" />
+          
+                            
+                        </h:panelGrid>
+                       
+                        <p:commandButton value ="guardar"  class="btn btn-primary my-2 my-sm-0" action="#{salaculturalController.guardar()}" />
+                  
+                        <p:dataTable id="datos" value="#{salaculturalController.lista}" var="mat" rendered="true">
+                            
+                            <p:column headerText="Id Sala">
+                                <h:outputText value="#{mat.idsala}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Nombre del edificio">
+                                <h:outputText value="#{mat.getidEdificio(mat.idedificio)}"/>
+                            </p:column>
+                            
+                            <p:column headerText="Nombre de la sala">
+                                <h:outputText value="#{mat.nombresala}"/>
+                            </p:column>
+                                                 
+                        </p:dataTable>                      
+                    </h:form>
+                </h:body>
+            </center> 
+        </ui:define>
+    </ui:composition>
+</html>

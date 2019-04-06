@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="plantillaProfesor.xhtml">
+
+        <ui:define name="titulo">Reservar Evento</ui:define>
+        <ui:define name="contenido">
+            <center>
+                <h:body>
+                    <h:form id ="formulario">
+
+                        <h:panelGrid columns= "2" cellpadding="5"  >
+
+                            <h:outputLabel for="Nombre del evento" value="Nombre del evento:"  />
+                            <p:inputText id="nombreEvento" required="true" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.nombreevento}"/>
+
+                             <h:outputLabel value="Id de la sala:"  />
+                            <h:selectOneMenu id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
+                                <f:selectItems  value="#{salaculturalController.idSalas()}" />
+                            </h:selectOneMenu>
+                             
+                            <p:outputLabel for="event" value="Select Event:" />
+                            <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
+                                <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
+                            </p:calendar>
+
+                            <p:outputLabel for="time" value="Hora Inicio:" />
+                            <p:calendar id="time" value="#{espacioCuluralController.espacio.horainicio}" pattern="HH:mm" timeOnly="true"  />
+
+                            <p:outputLabel for="time2" value="Hora Final:" />
+                            <p:calendar id="time2" value="#{espacioCuluralController.espacio.horafinal}" pattern="HH:mm" timeOnly="true"  />
+
+                        </h:panelGrid> 
+                        
+                        <p:commandButton value="Reservar" action="#{espacioCuluralController.reserva()}" />
+       
+               
+                       
+                        </h:form>
+
+                </h:body>
+            </center>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+
+
+
+
+
