@@ -72,13 +72,13 @@ public class Espaciocultural implements Serializable {
     @NotNull
     @Column(name = "reservado")
     private boolean reservado;
+    @JoinColumn(name = "idprofesor", referencedColumnName = "idprofesor")
+    @ManyToOne
+    private Profesor idprofesor;
     @JoinColumn(name = "idsala", referencedColumnName = "idsala")
     @ManyToOne(optional = false)
     private Salacultural idsala;
-    
-    
 
-    
     public Espaciocultural() {
     }
 
@@ -143,17 +143,28 @@ public class Espaciocultural implements Serializable {
         this.reservado = reservado;
     }
 
+    public Profesor getIdprofesor() {
+        return idprofesor;
+    }
+
+    public void setIdprofesor(Profesor idprofesor) {
+        this.idprofesor = idprofesor;
+    }
+
     public Salacultural getIdsala() {
         return idsala;
     }
 
-    public String getidSala(Salacultural s){
-        return s.getNombresala();
-    }
-    
     public void setIdsala(Salacultural idsala) {
         this.idsala = idsala;
     }
+    
+       public String getidSala(Salacultural s){
+        return s.getNombresala();
+    }
+    
+
+    
 
     @Override
     public int hashCode() {
@@ -180,7 +191,7 @@ public class Espaciocultural implements Serializable {
         return "com.ingenieria.biblioteca.modelo.Espaciocultural[ idevento=" + idevento + " ]";
     }
     
-    public String formatDate(Date d){
+     public String formatDate(Date d){
         SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
         
         return formatDate.format(d);
@@ -191,6 +202,13 @@ public class Espaciocultural implements Serializable {
         SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm:ss");
         return formatTime.format(d);
         
-    }
+}
+    
+    
+    
+    
+    
+    
+    
     
 }

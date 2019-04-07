@@ -6,6 +6,7 @@
 package com.ingenieria.biblioteca.modelo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Profesor.findByNumTrabajador", query = "SELECT p FROM Profesor p WHERE p.numTrabajador = :numTrabajador")
     , @NamedQuery(name = "Profesor.findByActivo", query = "SELECT p FROM Profesor p WHERE p.activo = :activo")})
 public class Profesor implements Serializable {
+
+    @OneToMany(mappedBy = "idprofesor")
+    private Collection<Espaciocultural> espacioculturalCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -184,6 +190,15 @@ public class Profesor implements Serializable {
     @Override
     public String toString() {
         return "com.ingenieria.biblioteca.modelo.Profesor[ idprofesor=" + idprofesor + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Espaciocultural> getEspacioculturalCollection() {
+        return espacioculturalCollection;
+    }
+
+    public void setEspacioculturalCollection(Collection<Espaciocultural> espacioculturalCollection) {
+        this.espacioculturalCollection = espacioculturalCollection;
     }
     
 }
