@@ -1,62 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <body>
+        <ui:composition>
+            <div id="encabezado" class="row">
 
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
-    <div id="encabezado">
-        <a href="http://www.unam.mx/">
-            <h:graphicImage library="img" width="555" height="103" name="barra-1.gif"/>
-            <h:graphicImage library="img" width="555" height="103" name="barra-2.jpg"/>
-        </a>
-    </div>
-    <nav class="navbar navbar-expand-md" style="background-color: #D2A911;">
-        <!-- Parte izquierda de la barra -->    
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <!-- Imagen -->
-                    <a class="navbar-brand" href="index.xhtml">
-                        <h:graphicImage 
-                                        library="img" 
-                                        width="30px" 
-                                        name="logo.png" />
-                    </a> 
-                </li>
-                <li class="nav-item">
-                    <h:form>
-                        <h:commandLink class="navbar-brand"
-                            style="color: white"
-                            action="/index"
-                            value="Inicio">
-                        </h:commandLink>
-                    </h:form>
-                </li>
-                <li class="nav-item">
-                    <h:form>
-                        <h:commandLink class="navbar-brand"
-                            style="color: white"
-                            action="/registro"
-                            value="Registro">
-                        </h:commandLink>
-                    </h:form>
-                </li>
-                
-            </ul>
-        </div>
+                <div class="col">
+                    <img id="logo-unam" src="#{resource['img/logo_unam-blanco.png']}" />
+                </div>
+                <div class="col-6">
+                    Gestor de Espacios Culturales    
+                </div>
+                <div class="col">
+                    <img  id="logo-ciencias" src="#{resource['img/ciencias-blanco.png']}" />
+                </div>
 
-        <!-- Parte central de la barra -->      
-        <div class="mx-auto order-0">
-        </div>
-
-        <!-- Parte derecha de la barra -->  
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-            </ul>
-        </div>
-    </nav>
-    
-</ui:composition>
+            </div>
+        </ui:composition>
+    </body>
+</html>

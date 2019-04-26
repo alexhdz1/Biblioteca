@@ -8,7 +8,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="plantillaAdministrador.xhtml">
 
-        <ui:define name="titulo">administrarProfesores</ui:define>
+        <ui:define name="titulo">Administrar Eventos</ui:define>
 
         <style type="text/css">
             .ui-row-editor .ui-row-editor-pencil {
@@ -18,75 +18,95 @@
 
 
         <ui:define name="contenido">
-            <center>
-                <h:body>
+            <h:body>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="administrarProfesores.xhtml">Profesores</a>
+                            <a class="nav-item nav-link" href="administrarEdificios.xhtml">Edificios</a>
+                            <a class="nav-item nav-link" href="administrarSalas.xhtml">Salas</a>
+                            <a class="nav-item nav-link" href="administrarEventos.xhtml">Eventos</a>
+                        </div>
+                    </div>
+                    <p:commandButton  value="cerrar sesion" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
+                </nav>
 
-                    <h:form>              
-                        <h:panelGrid columns= "2">
+                <div class="admin-profes">
 
-                            <h:outputLabel value="Id Evento:"  />
-                            <p:inputText id="idevento" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.idevento}"/>
+                    <h:form class="form-profes">
+                        <h3>
+                            Administrar Eventos
+                        </h3>
+                        <center>
+                            <h:panelGrid columns= "2">
 
-                            <h:outputLabel value="Nombre del evento:"  />
-                            <p:inputText id="nombreevento" value="#{espacioCuluralController.espacio.nombreevento}"/>
+                                <h:outputLabel value="Id Evento:"  />
+                                <p:inputText id="idevento" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.idevento}"/>
 
-     
-                            <h:outputLabel value="Id de la sala:"  />
-                            <h:selectOneMenu id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
-                                <f:selectItems  value="#{salaculturalController.idSalas()}" />
-                            </h:selectOneMenu>
-
-                            <p:outputLabel for="event" value="Select Event:" />
-                            <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
-                                <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
-                            </p:calendar>
-
-                            <p:outputLabel for="time" value="Hora Inicio:" />
-                            <p:calendar id="time" value="#{espacioCuluralController.espacio.horainicio}" pattern="HH:mm" timeOnly="true"  />
-
-                            <p:outputLabel for="time2" value="Hora Final:" />
-                            <p:calendar id="time2" value="#{espacioCuluralController.espacio.horafinal}" pattern="HH:mm" timeOnly="true"  />
-
-                        </h:panelGrid>
-                        <p:commandButton value ="Activar" action="#{espacioCuluralController.activaEvento()}"/>
-                        <p:commandButton value ="Desactivar" action="#{espacioCuluralController.desactivaEvento()}" />
+                                <h:outputLabel value="Nombre del evento:"  />
+                                <p:inputText id="nombreevento" value="#{espacioCuluralController.espacio.nombreevento}"/>
 
 
-                        <p:dataTable class="container" id="datos" value="#{espacioCuluralController.espacios}" var="mat" rendered="true">
+                                <h:outputLabel value="Id de la sala:"  />
+                                <h:selectOneMenu id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
+                                    <f:selectItems  value="#{salaculturalController.idSalas()}" />
+                                </h:selectOneMenu>
 
-                            <p:column headerText="Id del evento">
-                                <h:outputText value="#{mat.idevento}"/>
-                            </p:column>
+                                <p:outputLabel for="event" value="Select Event:" />
+                                <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
+                                    <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
+                                </p:calendar>
 
-                            <p:column headerText="Nombre del evento">
-                                <h:outputText value="#{mat.nombreevento}"/>
-                            </p:column>
+                                <p:outputLabel for="time" value="Hora Inicio:" />
+                                <p:calendar id="time" value="#{espacioCuluralController.espacio.horainicio}" pattern="HH:mm" timeOnly="true"  />
 
-                            <p:column headerText="Id de la sala del evento">
-                                <h:outputText value="#{mat.getidSala(mat.idsala)}"/>
-                            </p:column>
+                                <p:outputLabel for="time2" value="Hora Final:" />
+                                <p:calendar id="time2" value="#{espacioCuluralController.espacio.horafinal}" pattern="HH:mm" timeOnly="true"  />
 
-                            <p:column headerText="Fecha del evento">
-                                <h:outputText value="#{mat.formatDate(mat.fecha)}"/>
-                            </p:column>
-
-                            <p:column headerText="Hora de inicio del evento">
-                                <h:outputText value="#{mat.formaTime(mat.horainicio)}"/>
-                            </p:column>
-
-                            <p:column headerText="Hora final del evento">
-                                <h:outputText value="#{mat.formaTime(mat.horafinal)}"/>
-                            </p:column>
-
-                            <p:column headerText="Confirmacion">
-                                <h:outputText value="#{mat.reservado}"/>
-                            </p:column>
+                            </h:panelGrid>
+                            <p:commandButton value ="Activar" action="#{espacioCuluralController.activaEvento()}"/>
+                            <p:commandButton value ="Desactivar" action="#{espacioCuluralController.desactivaEvento()}" />
 
 
-                        </p:dataTable>                      
+                            <p:dataTable class="container" id="datos" value="#{espacioCuluralController.espacios}" var="mat" rendered="true">
+
+                                <p:column headerText="Id del evento">
+                                    <h:outputText value="#{mat.idevento}"/>
+                                </p:column>
+
+                                <p:column headerText="Nombre del evento">
+                                    <h:outputText value="#{mat.nombreevento}"/>
+                                </p:column>
+
+                                <p:column headerText="Id de la sala del evento">
+                                    <h:outputText value="#{mat.getidSala(mat.idsala)}"/>
+                                </p:column>
+
+                                <p:column headerText="Fecha del evento">
+                                    <h:outputText value="#{mat.formatDate(mat.fecha)}"/>
+                                </p:column>
+
+                                <p:column headerText="Hora de inicio del evento">
+                                    <h:outputText value="#{mat.formaTime(mat.horainicio)}"/>
+                                </p:column>
+
+                                <p:column headerText="Hora final del evento">
+                                    <h:outputText value="#{mat.formaTime(mat.horafinal)}"/>
+                                </p:column>
+
+                                <p:column headerText="Confirmacion">
+                                    <h:outputText value="#{mat.reservado}"/>
+                                </p:column>
+
+
+                            </p:dataTable>                      
+                        </center> 
                     </h:form>
-                </h:body>
-            </center> 
+                </div>
+            </h:body>
         </ui:define>
     </ui:composition>
 </html>

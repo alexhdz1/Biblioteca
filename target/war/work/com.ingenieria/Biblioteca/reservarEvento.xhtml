@@ -4,46 +4,62 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="plantillaProfesor.xhtml">
-
         <ui:define name="titulo">Reservar Evento</ui:define>
         <ui:define name="contenido">
-            <center>
-                <h:body>
-                    <h:form id ="formulario">
+            <h:body>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="principalProfesor.xhtml">Principal</a>
+                            <a class="nav-item nav-link" href="reservarEvento.xhtml">Reservar Evento</a>
+                        </div>
+                    </div>
+                    <p:commandButton  value="Cerrar Sesión" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
+                </nav>
 
-                        <h:panelGrid columns= "2" cellpadding="5"  >
+                <div class="admin-profes">
+                    <h:form class="form-profes">
+                        <h3>Reservar Evento</h3>
+                        <center>
+                            <h:panelGrid columns= "2" cellpadding="5"  >
 
-                            <h:outputLabel for="Nombre del evento" value="Nombre del evento:"  />
-                            <p:inputText id="nombreEvento" required="true" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.nombreevento}"/>
+                                <h:outputLabel for="Nombre del evento" value="Nombre del evento:"  />
+                                <p:inputText id="nombreEvento" required="true" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.nombreevento}"/>
 
-                             <h:outputLabel value="Id de la sala:"  />
-                            <h:selectOneMenu id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
-                                <f:selectItems  value="#{salaculturalController.idSalas()}" />
-                            </h:selectOneMenu>
-                             
-                            <p:outputLabel for="event" value="Select Event:" />
-                            <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
-                                <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
-                            </p:calendar>
+                                <h:outputLabel value="Id de la sala:"  />
+                                <h:selectOneMenu id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
+                                    <f:selectItems  value="#{salaculturalController.idSalas()}" />
+                                </h:selectOneMenu>
 
-                            <p:outputLabel for="time" value="Hora Inicio:" />
-                            <p:calendar id="time" value="#{espacioCuluralController.espacio.horainicio}" pattern="HH:mm" timeOnly="true"  />
+                                <p:outputLabel for="event" value="Select Event:" />
+                                <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
+                                    <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
+                                </p:calendar>
 
-                            <p:outputLabel for="time2" value="Hora Final:" />
-                            <p:calendar id="time2" value="#{espacioCuluralController.espacio.horafinal}" pattern="HH:mm" timeOnly="true"  />
+                                <p:outputLabel for="time" value="Hora Inicio:" />
+                                <p:calendar id="time" value="#{espacioCuluralController.espacio.horainicio}" pattern="HH:mm" timeOnly="true"  />
 
-                        </h:panelGrid> 
-                        
-                        <p:commandButton value="Reservar" action="#{espacioCuluralController.reserva()}" />
-       
-               
-                       
-                        </h:form>
+                                <p:outputLabel for="time2" value="Hora Final:" />
+                                <p:calendar id="time2" value="#{espacioCuluralController.espacio.horafinal}" pattern="HH:mm" timeOnly="true"  />
 
-                </h:body>
-            </center>
+                            </h:panelGrid> 
+
+                            <p:commandButton value="Reservar" action="#{espacioCuluralController.reserva()}" />
+                        </center>
+
+
+
+                    </h:form>
+                </div>
+
+            </h:body>
+
         </ui:define>
     </ui:composition>
 

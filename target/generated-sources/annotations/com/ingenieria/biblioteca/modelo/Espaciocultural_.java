@@ -1,12 +1,13 @@
 package com.ingenieria.biblioteca.modelo;
 
+import com.ingenieria.biblioteca.modelo.Profesor;
 import com.ingenieria.biblioteca.modelo.Salacultural;
 import java.util.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-04T15:28:32")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-04-25T21:13:52")
 @StaticMetamodel(Espaciocultural.class)
 public class Espaciocultural_ { 
 
@@ -17,5 +18,6 @@ public class Espaciocultural_ {
     public static volatile SingularAttribute<Espaciocultural, Date> horafinal;
     public static volatile SingularAttribute<Espaciocultural, Date> horainicio;
     public static volatile SingularAttribute<Espaciocultural, Salacultural> idsala;
+    public static volatile SingularAttribute<Espaciocultural, Profesor> idprofesor;
 
 }

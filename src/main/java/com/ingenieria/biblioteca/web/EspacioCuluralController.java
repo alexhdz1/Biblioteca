@@ -10,6 +10,7 @@ import com.ingenieria.biblioteca.controlador.SalaculturalJpaController;
 import com.ingenieria.biblioteca.modelo.Espaciocultural;
 import com.ingenieria.biblioteca.modelo.PersistenceUtil;
 import com.ingenieria.biblioteca.modelo.Salacultural;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +41,9 @@ public class EspacioCuluralController {
 
     Salacultural sala;
     Espaciocultural espacio;
-
+    
+    
+    
     List<Salacultural> salas;
     List<Espaciocultural> espacios;
 
@@ -153,15 +156,58 @@ public class EspacioCuluralController {
     }
 
     public void reserva() {
-        if (existeSala(tmpSala)) {
+        if(existeSala(tmpSala)){
+            if(!coincidenEventos()){
             espacio.setIdsala(jpaSala.findSalacultural(tmpSala));
             jpaEspacio.guardar(espacio);
-
-        } else {
-            muestraMensaje("La sala cultural con el id" + tmpSala + " no existe");
+        }
         }
         espacios = jpaEspacio.findEspacioculturalEntities();
     }
+    
+       
+    public List<Espaciocultural> coincidenFechas(){
+        List<Espaciocultural> c = new ArrayList();
+        for(Espaciocultural e: espacios){
+            
+                if (espacio.getFecha().equals(e.getFecha())) {
+                    c.add(e);
+                }
+            
+        }
+        return c;
+    }
+    
+    public boolean coincideHora(Espaciocultural e1, Espaciocultural e2){
+        if(e1.getHorainicio().equals(e2.getHorainicio())){
+            return true;
+        }else if(e1.getHorafinal().equals(e2.getHorafinal())){
+            return true;
+        }else if(e1.getHorainicio().after(e2.getHorainicio()) && e1.getHorainicio().before(e2.getHorafinal())){
+            return true;
+        }else if(e1.getHorainicio().before(e2.getHorainicio()) && e1.getHorafinal().after(e2.getHorainicio())){
+            return true;
+        }else if(e1.getHorainicio().after(e2.getHorainicio()) && e1.getHorafinal().before(e2.getHorafinal())){
+            return true;
+        }else{
+            return false;
+        }
+           
+
+  
+    }
+    
+    
+    public boolean coincidenEventos(){
+       List<Espaciocultural> c = coincidenFechas();
+       for(Espaciocultural e: c){
+           if(coincideHora(espacio,e))
+               return true;
+       }
+       return false;
+    }
+    
+    
 
     public boolean existeSala(int e) {
         for (Salacultural s : salas) {

@@ -8,55 +8,72 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="plantillaAdministrador.xhtml">
 
-        <ui:define name="titulo">administrarEdificios</ui:define>
-        
+        <ui:define name="titulo">Administrar Salas</ui:define>
+
         <style type="text/css">
             .ui-row-editor .ui-row-editor-pencil {
                 margin-left:8px;
-             }
+            }
         </style>
 
 
 
 
         <ui:define name="contenido">
-            <center>
-                <h:body>
+            <h:body>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="administrarProfesores.xhtml">Profesores</a>
+                            <a class="nav-item nav-link" href="administrarEdificios.xhtml">Edificios</a>
+                            <a class="nav-item nav-link" href="administrarSalas.xhtml">Salas</a>
+                            <a class="nav-item nav-link" href="administrarEventos.xhtml">Eventos</a>
+                        </div>
+                    </div>
+                    <p:commandButton  value="cerrar sesion" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
+                </nav>
 
-                    <h:form>              
-                        <h:panelGrid columns= "2">
-                            <h:outputText value = "id Sala" style="color: black "/>
-                            <p:inputText id="idsala" value ="#{salaculturalController.salacultural.idsala}" />
-         
-                            <h:outputText value = "id Edificio" style="color: black "/>
-                            <p:inputText id="idedificio" value ="#{salaculturalController.tmpid}" />
-                            
-                            <h:outputText value = "nombre" style="color: black "/>
-                            <p:inputText id="nombresala" value ="#{salaculturalController.salacultural.nombresala}" />
-          
-                            
-                        </h:panelGrid>
-                       
-                        <p:commandButton value ="guardar"  class="btn btn-primary my-2 my-sm-0" action="#{salaculturalController.guardar()}" />
-                  
-                        <p:dataTable id="datos" value="#{salaculturalController.lista}" var="mat" rendered="true">
-                            
-                            <p:column headerText="Id Sala">
-                                <h:outputText value="#{mat.idsala}"/>
-                            </p:column>
-                            
-                            <p:column headerText="Nombre del edificio">
-                                <h:outputText value="#{mat.getidEdificio(mat.idedificio)}"/>
-                            </p:column>
-                            
-                            <p:column headerText="Nombre de la sala">
-                                <h:outputText value="#{mat.nombresala}"/>
-                            </p:column>
-                                                 
-                        </p:dataTable>                      
+                <div class="admin-profes">
+                    <h:form class="form-profes">
+                        <h3>Administrar Salas</h3>
+                        <center>
+                            <h:panelGrid columns= "2">
+                                <h:outputText value = "id Sala" style="color: black "/>
+                                <p:inputText id="idsala" value ="#{salaculturalController.salacultural.idsala}" />
+
+                                <h:outputText value = "id Edificio" style="color: black "/>
+                                <p:inputText id="idedificio" value ="#{salaculturalController.tmpid}" />
+
+                                <h:outputText value = "nombre" style="color: black "/>
+                                <p:inputText id="nombresala" value ="#{salaculturalController.salacultural.nombresala}" />
+
+
+                            </h:panelGrid>
+
+                            <p:commandButton value ="Guardar"  class="btn btn-primary my-2 my-sm-0" action="#{salaculturalController.guardar()}" />
+
+                            <p:dataTable id="datos" value="#{salaculturalController.lista}" var="mat" rendered="true">
+
+                                <p:column headerText="Id Sala">
+                                    <h:outputText value="#{mat.idsala}"/>
+                                </p:column>
+
+                                <p:column headerText="Nombre del edificio">
+                                    <h:outputText value="#{mat.getidEdificio(mat.idedificio)}"/>
+                                </p:column>
+
+                                <p:column headerText="Nombre de la sala">
+                                    <h:outputText value="#{mat.nombresala}"/>
+                                </p:column>
+
+                            </p:dataTable>                      
+                        </center> 
                     </h:form>
-                </h:body>
-            </center> 
+                </div>
+            </h:body>
         </ui:define>
     </ui:composition>
 </html>

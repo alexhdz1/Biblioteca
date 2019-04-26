@@ -72,7 +72,7 @@ public class loginController {
 
         Administrador miAdmin = busca();
         if (miAdmin == null) {
-            System.out.println("no existe");
+          
             loginProfesor();
 
         } else if (!contra.equals(miAdmin.getContrasena())) {
@@ -81,10 +81,10 @@ public class loginController {
             //System.out.println("contraseña incorrecta");
         } else if (contra.equals(miAdmin.getContrasena())) {
 
-            //System.out.println("inicio sesion");
             FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().put("nombre", miAdmin.getCorreo());
-            redirecciona("/administrarProfesores.xhtml");
+               System.out.println("+++++++++++++++++++++++++++++"+context);
+            redirecciona("/faces/administrarProfesores.xhtml");
 
         }
     }
@@ -116,10 +116,12 @@ public class loginController {
         
         else if (contra.equals(miProfesor.getContrasena())) {
 
-            //System.out.println("inicio sesion")loginController;
+            System.out.println("inicio sesion");
+            
             FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().put("profesor", miProfesor.getCorreo());
-            redirecciona("/principalProfesor.xhtml");
+            System.out.println("+++++++++++++++++++++++++++++"+context);
+            redirecciona("/faces/principalProfesor.xhtml");
 
         }
     }
@@ -189,7 +191,10 @@ public class loginController {
      */
     public void logout() {
         FacesContext context = FacesContext.getCurrentInstance();
+       
         context.getExternalContext().invalidateSession();
+
+        
         try {
             context.getExternalContext().redirect("index.xhtml");
         } catch (IOException e) {

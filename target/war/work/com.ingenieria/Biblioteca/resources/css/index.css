@@ -8,15 +8,24 @@ and open the template in the editor.
     Author     : damianri
 */
 .container{
-    min-width: 600px;
+    min-width: 800px;
 }
 
 
+.container .form-registro,.form-inicio{
+    width: 50%;
+    margin: auto;
+}
+
 h3{
-    background-color: #0e253d;
-    padding: 10px;
+    background-color: #d0ccd0;
     border-radius: 5px;
-    color: white !important;
+    padding: 5px;
+    color: #000;
+}
+
+.navbar{
+    background-color: #f1cf8d;
 }
 
 .ui-button{
@@ -25,24 +34,24 @@ h3{
     box-shadow: none;
 }
 
-#enlace-registro{
-    padding: 10px;
-}
-
-.form-group{
-    padding: 10px 10px;
-}
 label{
     padding-top: 5px;
+    font-weight: bold;
 }
 
 
 .ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield{
     box-shadow: none;
+    background-image: none;
+    background-color: transparent;
 }
 
-#a-registro{
-    background-color: #eb5160;
+#enlace-registro, #enlace-inicio{
+    margin-top: 30px;
+}
+
+#a-registro, #a-inicio{
+    background-color: #235086;
     border-radius: 3px;
     padding: 0px 10px;
     color: white;
@@ -50,7 +59,81 @@ label{
     transition: 0.2s;
 }
 
-#a-registro:hover{
+#a-registro:hover, #a-inicio:hover{
     opacity: 1;
-    text-decoration: none;
+
+}
+.admin-profes{
+    background-color: #e9ecef;
+    min-width: 600px;
+    padding: 20px 0px;
+}
+
+.admin-profes .form-profes{
+    margin: auto;
+    width: 90%;
+    min-width: 500px;
+}
+
+.entradas{
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    margin: auto;
+    text-align: right;
+}
+
+.entradas .label{
+    padding: 0px 20px;
+}
+
+.entradas .ui-inputfield{
+    background-color: #fff;
+    margin-top: 5px;
+}
+
+.botones{
+    padding: 15px;
+    margin-left: 5%;
+}
+
+.admin-profes .form-profes .botones .btn{
+    padding: 5px 15px;
+    margin: 3px;
+    width: 110px;
+    font-weight: bold;
+}
+
+.admin-profes .form-profes .botones .btn-primary:hover{
+    background-color: #f26419;
+}
+.ui-datatable thead th{
+    background-color: #235086;
+    background-image: none;
+    text-shadow: none;
+    color: #fff;
+    overflow: visible;
+}
+
+.id-col{
+    width: 40px;
+}
+.depto-col{
+    width: 150px;
+}
+.nump-col{
+    width: 125px;
+}
+.tipop-col{
+    width: 90px;
+}
+.activo-col{
+    width: 75px;
+}
+
+.footer{
+    background-color: #605856;
+    padding: 50px;
+    text-align: center;
+    color: #FFF;
 }

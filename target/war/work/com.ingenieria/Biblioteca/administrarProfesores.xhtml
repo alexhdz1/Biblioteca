@@ -7,83 +7,90 @@
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="plantillaAdministrador.xhtml">
-
-        <ui:define name="titulo">administrarProfesores</ui:define>
-        
-        <style type="text/css">
-            .ui-row-editor .ui-row-editor-pencil {
-                margin-left:8px;
-             }
-        </style>
-
-
-
-
+        <ui:define name="titulo">Administrar Profesores</ui:define>
         <ui:define name="contenido">
-            <center>
-                <h:body>
+            <h:body>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="administrarProfesores.xhtml">Profesores</a>
+                            <a class="nav-item nav-link" href="administrarEdificios.xhtml">Edificios</a>
+                            <a class="nav-item nav-link" href="administrarSalas.xhtml">Salas</a>
+                            <a class="nav-item nav-link" href="administrarEventos.xhtml">Eventos</a>
+                        </div>
+                    </div>
+                    <p:commandButton  value="cerrar sesion" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
+                </nav>
 
-                    <h:form>              
-                        <h:panelGrid columns= "2">
-                            <h:outputText value = "id" style="color: black "/>
+                <div class="admin-profes">
+                    <h:form class="form-profes">              
+                        <h3>Administrar Profesores</h3>
+                        <h5>Filtrar por:</h5>
+                        <h:panelGrid columns= "2" class="entradas">
+                            <h:outputText class="label" value = "id"/>
                             <p:inputText id="profesor_id" value ="#{profesorController.profesor.idprofesor}" />
-                            <h:outputText value = "Nombre" style="color: black" />
+                            <h:outputText class="label" value = "Nombre"/>
                             <p:inputText id="profesor_nombre" readonly="true"  value ="#{profesorController.profesor.nombre}" />
-                            <h:outputText  value = "Contraseña"  style="color: black "/>
+                            <h:outputText class="label" value = "Contraseña"/>
                             <p:inputText id="profesor_contrasena" readonly="true" value ="#{profesorController.profesor.contrasena}" />
-                            <h:outputText value = "Correo" style="color: black" />
+                            <h:outputText class="label" value = "Correo"/>
                             <p:inputText id="porfesor_correo" readonly="true" value ="#{profesorController.profesor.correo}" />
-                            <h:outputText value = "Numero de trabajador" style="color: black" />
+                            <h:outputText class="label" value = "Numero de trabajador"/>
                             <p:inputText id="porfesor_NumTrabajador" readonly="true" value ="#{profesorController.profesor.numTrabajador}" />
-                            <h:outputText value = "Departamento" style="color: black" />
+                            <h:outputText class="label" value = "Departamento"/>
                             <p:inputText id="profesor_departamento" readonly="true" value ="#{profesorController.profesor.departamento}" />
-                            <h:outputText value = "Tipo Profesor" style="color: black" />
+                            <h:outputText class="label" value = "Tipo Profesor"/>
                             <p:inputText id="profesor_tipo" readonly="true" value ="#{profesorController.profesor.tipoprof}" />
-                            <h:outputText value = "Activo"  style="color: black" />
+                            <h:outputText class="label" value = "Activo"/>
                             <p:inputText id="profesor_activo" readonly="true" value ="#{profesorController.profesor.activo}" />
                         </h:panelGrid>
-                        <h:commandButton value ="Buscar"  class="btn btn-primary my-2 my-sm-0" action="#{profesorController.buscar()}" />
-                        <h:commandButton value ="Guardar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.guardar()}" />
-                        <h:commandButton value ="Editar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.modificar()}"/>
-                        <h:commandButton value ="Activar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.activaProfesor()}"/>
-                        <h:commandButton value ="Desactiva" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.desactivaProfesor()}"/>
-                        <h:commandButton value ="Eliminar" class="btn btn-danger my-2 my-sm-0" action="#{profesorController.eliminar()}"/>
-                     
+                        <div class="botones">
+                            <h:commandButton value ="Buscar"  class="btn btn-primary my-2 my-sm-0" action="#{profesorController.buscar()}" />
+                            <h:commandButton value ="Guardar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.guardar()}" />
+                            <h:commandButton value ="Editar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.modificar()}"/>
+                            <h:commandButton value ="Activar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.activaProfesor()}"/>
+                            <h:commandButton value ="Desactiva" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.desactivaProfesor()}"/>
+                            <h:commandButton value ="Eliminar" class="btn btn-danger my-2 my-sm-0" action="#{profesorController.eliminar()}"/>
+                        </div>
+
                         <p:dataTable id="datos" value="#{profesorController.getLista()}" var="mat" rendered="true">
-                            
-                            <p:column headerText="Id">
+
+                            <p:column headerText="Id" class="id-col">
                                 <h:outputText value="#{mat.idprofesor}"/>
                             </p:column>
-                            
+
                             <p:column headerText="Nombre">
                                 <h:outputText value="#{mat.nombre}"/>
                             </p:column>
-                            
+
                             <p:column headerText="Correo">
                                 <h:outputText value="#{mat.correo}"/>
                             </p:column>
-                            
-                            <p:column headerText="Departamento">
+
+                            <p:column headerText="Departamento" class="depto-col">
                                 <h:outputText value="#{mat.departamento}"/>
                             </p:column>
-                            
-                            <p:column headerText="Numero de trabajador">
+
+                            <p:column headerText="Numero de trabajador" class="nump-col">
                                 <h:outputText value="#{mat.numTrabajador}"/>
                             </p:column>
-                            
-                            <p:column headerText="Tipo de Profesor">
+
+                            <p:column headerText="Tipo de Profesor" class="tipop-col">
                                 <h:outputText value="#{mat.tipoprof}"/>
                             </p:column>
-                        
-                            <p:column headerText="Activo">
-                            
+
+                            <p:column headerText="Activo" class="activo-col">
+
                                 <h:outputText value="#{mat.activo}"/>
-                                 
+
                             </p:column>                        
                         </p:dataTable>                      
                     </h:form>
-                </h:body>
-            </center> 
+                </div>
+            </h:body>
         </ui:define>
     </ui:composition>
 </html>
