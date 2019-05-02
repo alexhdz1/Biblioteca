@@ -18,6 +18,7 @@
                         <div class="navbar-nav">
                             <a class="nav-item nav-link" href="principalProfesor.xhtml">Principal</a>
                             <a class="nav-item nav-link" href="reservarEvento.xhtml">Reservar Evento</a>
+                            <a class="nav-item nav-link" href="historialEventosProfesor.xhtml">Reservar Evento</a>
                         </div>
                     </div>
                     <p:commandButton  value="Cerrar Sesión" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
@@ -36,7 +37,13 @@
                                 <h:selectOneMenu id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
                                     <f:selectItems  value="#{salaculturalController.idSalas()}" />
                                 </h:selectOneMenu>
-   
+                                
+                                <h:outputLabel for="Id del Profesor" value="idProfesor:"  />
+                                <p:inputText id="idProfesor" required="true" requiredMessage="Rellenar campo" value="#{loginController.id}"/>
+
+                                
+                                
+                                
                             <p:outputLabel for="event" value="Seleccione Fecha:" />
                             <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
                                 <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
@@ -52,7 +59,7 @@
                               
                             </h:panelGrid> 
 
-                            <p:commandButton value="Reservar" action="#{espacioCuluralController.reserva()}" />
+                            <p:commandButton value="Reservar" action="#{loginController.imprimeId()}" />
                         </center>
 
 

@@ -55,7 +55,7 @@
                                     <f:selectItems  value="#{salaculturalController.idSalas()}" />
                                 </h:selectOneMenu>
 
-                                <p:outputLabel for="event" value="Select Event:" />
+                                <p:outputLabel for="event" value="Fecha:" />
                                 <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
                                     <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
                                 </p:calendar>
