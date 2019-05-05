@@ -160,54 +160,60 @@ public class ProfesorJpaController implements Serializable {
         }
     }
     
-             public List<Profesor> findProfesor(Profesor mat){
+    
+    
+    public List<Profesor> findProfesor(Profesor mat){
 	EntityManager em = getEntityManager();
 	String jpl = "SELECT m FROM Profesor m";
 	boolean creada = false;
 	if(mat != null){
 	    if(mat.getIdprofesor() != 0){
 		creada = true;
-		jpl = jpl + " WHERE m.id = " + Integer.toString(mat.getIdprofesor());
+		jpl = jpl + " WHERE m.idprofesor = " + Integer.toString(mat.getIdprofesor());
 	    }
-	    if(!"".equals(mat.getNombre())){
+            
+            if(!"".equals(mat.getNombre())){
 		if(creada){
 		    jpl = jpl + " AND m.nombre LIKE '%" + mat.getNombre() + "%'";
 		} else {
 		    creada = true;
 		    jpl = jpl + " WHERE m.nombre LIKE '%" + mat.getNombre() + "%'";
 		}
-	    }
-	    if(!"".equals(mat.getCorreo())){
+            }
+            if(!"".equals(mat.getCorreo())){
 		if(creada){
 		    jpl = jpl + " AND m.correo LIKE '%" + mat.getCorreo() + "%'";
 		} else {
 		    creada = true;
-		    jpl = jpl + " WHERE m.correo LIKE '%" + mat.getCorreo()+ "%'";
+		    jpl = jpl + " WHERE m.correo LIKE '%" + mat.getCorreo() + "%'";
 		}
-	    }
-            if(!"".equals(mat.getNumTrabajador())){
+            }
+            
+            if(!"".equals(mat.getDepartamento())){
 		if(creada){
-		    jpl = jpl + " AND m.num_trabajador LIKE '%" + mat.getNumTrabajador()+ "%'";
+		    jpl = jpl + " AND m.departamento LIKE '%" + mat.getDepartamento() + "%'";
 		} else {
 		    creada = true;
-		    jpl = jpl + " WHERE m.num_trabajador LIKE '%" + mat.getNumTrabajador()+ "%'";
+		    jpl = jpl + " WHERE m.departamento LIKE '%" + mat.getDepartamento() + "%'";
 		}
-             
-	    }
-            if(!"".equals(mat.getNumTrabajador())){
+            }
+            
+            if(!"".equals(mat.getTipoprof())){
 		if(creada){
-		    jpl = jpl + " AND m.activo LIKE '%" + mat.getNumTrabajador()+ "%'";
+		    jpl = jpl + " AND m.tipoprof LIKE '%" + mat.getTipoprof() + "%'";
 		} else {
 		    creada = true;
-		    jpl = jpl + " WHERE m.activo LIKE '%" + mat.getNumTrabajador()+ "%'";
+		    jpl = jpl + " WHERE m.tipoprof LIKE '%" + mat.getTipoprof() + "%'";
 		}
-             
-	    }
+            }
+
+                
             
 	}
 	Query query = em.createQuery(jpl);
 	return query.getResultList();
     }
+    
     
     
  

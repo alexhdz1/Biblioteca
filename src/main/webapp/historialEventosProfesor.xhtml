@@ -18,12 +18,46 @@
                         <div class="navbar-nav">
                             <a class="nav-item nav-link" href="principalProfesor.xhtml">Principal</a>
                             <a class="nav-item nav-link" href="reservarEvento.xhtml">Reservar Evento</a>
-                            <a class="nav-item nav-link" href="historialEventosProfesor.xhtml">Reservar Evento</a>
+                            <a class="nav-item nav-link" href="historialEventosProfesor.xhtml">Historial eventos</a>
                         </div>
                     </div>
                     <p:commandButton  value="Cerrar Sesión" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
                 </nav>
-                <h:form>
+                
+                 <h:form class="form-profes">
+                        <h3>
+                            Administrar Eventos
+                        </h3>
+                        <center>
+                            <h:panelGrid columns= "2" class="entradas">
+
+                                <h:outputLabel value="Id Evento:"  />
+                                <p:inputText id="idevento" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.idevento}"/>
+
+                                <h:outputLabel value="Nombre del evento:"  />
+                                <p:inputText id="nombreevento" value="#{espacioCuluralController.espacio.nombreevento}"/>
+
+
+                                <h:outputLabel value="Id de la sala:"  />
+                                <h:selectOneMenu class="form-control"  id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 280px; " >
+                                    <f:selectItem itemLabel="Seleccione un id de Sala" itemValue="" />
+                                    <f:selectItems  value="#{salaculturalController.idSalas()}" />
+                                </h:selectOneMenu>
+
+                                <h:outputLabel for="event" value="Fecha:" />
+                                
+                                <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
+                                    <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
+                                </p:calendar>
+                                
+                            </h:panelGrid>
+                            <div class="botones">
+                            <h:commandButton value ="Buscar" class="btn btn-primary my-2 my-sm-0" action="#{espacioCuluralController.buscar()}"/>
+                           
+                            <h:commandButton value ="Muestra todo" class="btn btn-primary my-2 my-sm-0" action="#{espacioCuluralController.muestraTodo()}"/>
+                            </div>
+
+
                             <p:dataTable class="container" id="datos" value="#{espacioCuluralController.espacios}" var="mat" rendered="true">
 
                                 <p:column headerText="Id del evento">
@@ -53,10 +87,10 @@
                                 <p:column headerText="Confirmacion">
                                     <h:outputText value="#{mat.reservado}"/>
                                 </p:column>
-
-
-                            </p:dataTable>       
-                </h:form>
+                                
+                            </p:dataTable>                      
+                        </center> 
+                    </h:form>
             </h:body>
 
         </ui:define>

@@ -291,4 +291,19 @@ public class EspacioCuluralController {
 
     }
 
+        
+    public Espaciocultural buscar(){
+	espacios.clear();
+	espacios = jpaEspacio.findEspaciocultural(espacio);
+        System.out.println(espacios);
+        return jpaEspacio.findEspaciocultural(espacio.getIdevento());
+    }
+    
+    public void muestraTodo(){
+        espacios = jpaEspacio.findEspacioculturalEntities();
+    }
+    
+    
+    
+    
 }

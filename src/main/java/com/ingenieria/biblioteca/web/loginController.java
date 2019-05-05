@@ -1,5 +1,6 @@
 package com.ingenieria.biblioteca.web;
 
+
 import com.ingenieria.biblioteca.controlador.AdministradorJpaController;
 import com.ingenieria.biblioteca.controlador.ProfesorJpaController;
 import com.ingenieria.biblioteca.modelo.Administrador;
@@ -23,14 +24,16 @@ import org.primefaces.context.RequestContext;
 @RequestScoped
 @Named("loginController")
 public class loginController {
-
+    private int id;
     private final ProfesorJpaController jpaProfesor;
     private final AdministradorJpaController jpaAdministrador;
-
+    private final FacesContext context = FacesContext.getCurrentInstance();
     private String correo;
     private String contra;
     private String estado;
 
+
+    
     /**
      * Creates a new instance of AlumnoController
      */
@@ -40,6 +43,7 @@ public class loginController {
         this.estado = "no presionado";
     }
 
+    
     public String getCorreo() {
         return correo;
     }
@@ -47,7 +51,11 @@ public class loginController {
     public void setCorreo(String co) {
         this.correo = co;
     }
-
+    
+    public int getId(){
+        return id;
+    }
+    
     public String getContra() {
         return contra;
     }
@@ -80,12 +88,14 @@ public class loginController {
             muestraMensaje("Contraseña incorrecta");
             //System.out.println("contraseña incorrecta");
         } else if (contra.equals(miAdmin.getContrasena())) {
-
-            FacesContext context = FacesContext.getCurrentInstance();
+            
             context.getExternalContext().getSessionMap().put("nombre", miAdmin.getCorreo());
-               System.out.println("+++++++++++++++++++++++++++++"+context);
-            redirecciona("/faces/administrarProfesores.xhtml");
-
+            id = miAdmin.getIdadministrador();
+            System.out.println("+++++++++++++++++++++++++++++"+context);
+                id = miAdmin.getIdadministrador();                
+               redirecciona("/faces/administrarProfesores.xhtml");
+            
+           
         }
     }
 
@@ -96,7 +106,7 @@ public class loginController {
     public void loginProfesor() {
 
         Profesor miProfesor = buscaProfesor();
-
+  
         if (miProfesor == null) {
             muestraMensaje("El Usuario no existe.");
 
@@ -118,10 +128,12 @@ public class loginController {
 
             System.out.println("inicio sesion");
             
-            FacesContext context = FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().put("profesor", miProfesor.getCorreo());
-            System.out.println("+++++++++++++++++++++++++++++"+context);
+            id = miProfesor.getIdprofesor();
+            System.out.println("+++++++++++++++++++++++++++++"+context);   
             redirecciona("/faces/principalProfesor.xhtml");
+            
+            
 
         }
     }
@@ -158,9 +170,6 @@ public class loginController {
         for (int i = 0; i < listaAdmins.size(); i++) {
             if (listaAdmins.get(i).getCorreo().equals(correo)) {
                 miAdmin = listaAdmins.get(i);
-                //miAdmin.setActivo(true);
-
-                //System.out.println("estoy probando" + name + " con " + )
             }
         }
         return miAdmin;
@@ -170,12 +179,15 @@ public class loginController {
       Redirecciona al usuario a una url: direccion
      */
     private void redirecciona(String direccion) {
-        FacesContext context = FacesContext.getCurrentInstance();
+  
+        
         HttpServletRequest origRequest = (HttpServletRequest) context.getExternalContext().getRequest();
         String contextPath = origRequest.getContextPath();
         try {
             FacesContext.getCurrentInstance().getExternalContext()
                     .redirect(contextPath + direccion);
+          
+          
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -190,8 +202,7 @@ public class loginController {
      * Hace logout borrando la sesion 
      */
     public void logout() {
-        FacesContext context = FacesContext.getCurrentInstance();
-       
+          
         context.getExternalContext().invalidateSession();
 
         
@@ -201,6 +212,9 @@ public class loginController {
             e.printStackTrace();
         }
     }
-
-
+    
+public void imprimeId(){
+   
+    System.err.println(id);
+}
 }

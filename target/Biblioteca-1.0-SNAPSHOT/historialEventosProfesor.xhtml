@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="plantillaProfesor.xhtml">
+        <ui:define name="titulo">Reservar Evento</ui:define>
+        <ui:define name="contenido">
+            <h:body>
+                             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="principalProfesor.xhtml">Principal</a>
+                            <a class="nav-item nav-link" href="reservarEvento.xhtml">Reservar Evento</a>
+                            <a class="nav-item nav-link" href="historialEventosProfesor.xhtml">Historial eventos</a>
+                        </div>
+                    </div>
+                    <p:commandButton  value="Cerrar Sesión" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
+                </nav>
+                
+                 <h:form class="form-profes">
+                        <h3>
+                            Administrar Eventos
+                        </h3>
+                        <center>
+                            <h:panelGrid columns= "2" class="entradas">
+
+                                <h:outputLabel value="Id Evento:"  />
+                                <p:inputText id="idevento" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.idevento}"/>
+
+                                <h:outputLabel value="Nombre del evento:"  />
+                                <p:inputText id="nombreevento" value="#{espacioCuluralController.espacio.nombreevento}"/>
+
+
+                                <h:outputLabel value="Id de la sala:"  />
+                                <h:selectOneMenu class="form-control"  id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 280px; " >
+                                    <f:selectItem itemLabel="Seleccione un id de Sala" itemValue="" />
+                                    <f:selectItems  value="#{salaculturalController.idSalas()}" />
+                                </h:selectOneMenu>
+
+                                <h:outputLabel for="event" value="Fecha:" />
+                                
+                                <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
+                                    <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
+                                </p:calendar>
+                                
+                            </h:panelGrid>
+                            <div class="botones">
+                            <h:commandButton value ="Buscar" class="btn btn-primary my-2 my-sm-0" action="#{espacioCuluralController.buscar()}"/>
+                           
+                            <h:commandButton value ="Muestra todo" class="btn btn-primary my-2 my-sm-0" action="#{espacioCuluralController.muestraTodo()}"/>
+                            </div>
+
+
+                            <p:dataTable class="container" id="datos" value="#{espacioCuluralController.espacios}" var="mat" rendered="true">
+
+                                <p:column headerText="Id del evento">
+                                    <h:outputText value="#{mat.idevento}"/>
+                                </p:column>
+
+                                <p:column headerText="Nombre del evento">
+                                    <h:outputText value="#{mat.nombreevento}"/>
+                                </p:column>
+
+                                <p:column headerText="Id de la sala del evento">
+                                    <h:outputText value="#{mat.getidSala(mat.idsala)}"/>
+                                </p:column>
+
+                                <p:column headerText="Fecha del evento">
+                                    <h:outputText value="#{mat.formatDate(mat.fecha)}"/>
+                                </p:column>
+
+                                <p:column headerText="Hora de inicio del evento">
+                                    <h:outputText value="#{mat.formaTime(mat.horainicio)}"/>
+                                </p:column>
+
+                                <p:column headerText="Hora final del evento">
+                                    <h:outputText value="#{mat.formaTime(mat.horafinal)}"/>
+                                </p:column>
+
+                                <p:column headerText="Confirmacion">
+                                    <h:outputText value="#{mat.reservado}"/>
+                                </p:column>
+                                
+                            </p:dataTable>                      
+                        </center> 
+                    </h:form>
+            </h:body>
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+

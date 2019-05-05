@@ -18,7 +18,7 @@
                         <div class="navbar-nav">
                             <a class="nav-item nav-link" href="principalProfesor.xhtml">Principal</a>
                             <a class="nav-item nav-link" href="reservarEvento.xhtml">Reservar Evento</a>
-                            <a class="nav-item nav-link" href="historialEventosProfesor.xhtml">Reservar Evento</a>
+                            <a class="nav-item nav-link" href="historialEventosProfesor.xhtml">Historial eventos</a>
                         </div>
                     </div>
                     <p:commandButton  value="Cerrar Sesión" action="#{loginController.logout()}" style="position: absolute;right:20px;top:15px;"/>
@@ -54,9 +54,7 @@
 
                             <p:outputLabel for="time2" value="Hora Final:" />
                             <p:calendar id="time2" value="#{espacioCuluralController.espacio.horafinal}" pattern="HH:mm" timeOnly="true"  />
-                            
-                          
-                              
+                    
                             </h:panelGrid> 
 
                             <p:commandButton value="Reservar" action="#{loginController.imprimeId()}" />

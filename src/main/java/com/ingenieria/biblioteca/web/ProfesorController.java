@@ -129,12 +129,6 @@ public class ProfesorController {
         lista = jpa.findProfesorEntities();
     }
 
-    public Profesor buscar() {
-        lista.clear();
-        lista = jpa.findProfesor(profesor);
-        System.out.println(profesor.getIdprofesor().toString());
-        return jpa.findProfesor(profesor.getIdprofesor());
-    }
 
     public void activaProfesor() {
         
@@ -214,5 +208,18 @@ public class ProfesorController {
         }
         return false;
     }
-
+    
+    public Profesor buscar(){
+        System.out.println(jpa.findProfesor(profesor));
+	lista.clear();
+	lista = jpa.findProfesor(profesor);
+        System.out.println(lista);
+	
+        return jpa.findProfesor(profesor.getIdprofesor());
+    }
+    
+    public void muestraTodo(){
+        lista = jpa.findProfesorEntities();
+    }
+    
 }

@@ -143,6 +143,10 @@ public class EspacioculturalJpaController implements Serializable {
         }
     }
 
+    
+    
+    
+    
     public Espaciocultural findEspaciocultural(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -152,6 +156,11 @@ public class EspacioculturalJpaController implements Serializable {
         }
     }
 
+    
+    
+    
+    
+    
     public int getEspacioculturalCount() {
         EntityManager em = getEntityManager();
         try {
@@ -188,5 +197,44 @@ public class EspacioculturalJpaController implements Serializable {
 	em.getTransaction().commit();
         em.close();
     }
+    
+    
+    
+    public List<Espaciocultural> findEspaciocultural(Espaciocultural mat){
+	EntityManager em = getEntityManager();
+	String jpl = "SELECT m FROM Espaciocultural m";
+	boolean creada = false;
+	if(mat != null){
+	    if(mat.getIdevento()!= 0){
+		creada = true;
+		jpl = jpl + " WHERE m.idevento = " + Integer.toString(mat.getIdevento());
+	    }
+            
+            if(!"".equals(mat.getNombreevento())){
+		if(creada){
+		    jpl = jpl + " AND m.nombreevento LIKE '%" + mat.getNombreevento()+ "%'";
+		} else {
+		    creada = true;
+		    jpl = jpl + " WHERE m.nombreevento LIKE '%" + mat.getNombreevento() + "%'";
+		}
+            }
+
+            
+	}
+	Query query = em.createQuery(jpl);
+	return query.getResultList();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 }

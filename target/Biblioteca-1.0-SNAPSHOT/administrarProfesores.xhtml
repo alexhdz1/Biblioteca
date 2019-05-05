@@ -31,31 +31,44 @@
                         <h5>Filtrar por:</h5>
                         <h:panelGrid columns= "2" class="entradas">
                             <h:outputText class="label" value = "id"/>
-                            <p:inputText id="profesor_id" value ="#{profesorController.profesor.idprofesor}" />
+                            <p:inputText id="profesor_id" class="form-control" value ="#{profesorController.profesor.idprofesor}" />
                             <h:outputText class="label" value = "Nombre"/>
-                            <p:inputText id="profesor_nombre" readonly="true"  value ="#{profesorController.profesor.nombre}" />
-                            <h:outputText class="label" value = "Contraseña"/>
-                            <p:inputText id="profesor_contrasena" readonly="true" value ="#{profesorController.profesor.contrasena}" />
+                            <p:inputText id="profesor_nombre"  value ="#{profesorController.profesor.nombre}" />
                             <h:outputText class="label" value = "Correo"/>
-                            <p:inputText id="porfesor_correo" readonly="true" value ="#{profesorController.profesor.correo}" />
-                            <h:outputText class="label" value = "Numero de trabajador"/>
-                            <p:inputText id="porfesor_NumTrabajador" readonly="true" value ="#{profesorController.profesor.numTrabajador}" />
+                            <p:inputText id="porfesor_correo" value ="#{profesorController.profesor.correo}" />
+                           
                             <h:outputText class="label" value = "Departamento"/>
-                            <p:inputText id="profesor_departamento" readonly="true" value ="#{profesorController.profesor.departamento}" />
+                            
+                            <h:selectOneMenu class="form-control"  id="departamento" value="#{profesorController.profesor.departamento}" >
+                            <f:selectItem itemLabel="Seleccione un departamento" itemValue="" />
+                            <f:selectItem itemLabel="Ciencias de la Computacion" itemValue="Ciencias de la Computacion" />
+                            <f:selectItem itemLabel="Matematicas" itemValue="Matematicas" />
+                            <f:selectItem itemLabel="Fisica" itemValue="Fisica" />
+                            <f:selectItem itemLabel="Biologia" itemValue="Biologia"/>
+                            <f:selectItem itemLabel="Actuaria" itemValue="Actuaria"/>
+                            <f:selectItem itemLabel="Ciencias de la tierra" itemValue="Ciencias de la tierra"/>    
+                            </h:selectOneMenu>
+                            
                             <h:outputText class="label" value = "Tipo Profesor"/>
-                            <p:inputText id="profesor_tipo" readonly="true" value ="#{profesorController.profesor.tipoprof}" />
-                            <h:outputText class="label" value = "Activo"/>
-                            <p:inputText id="profesor_activo" readonly="true" value ="#{profesorController.profesor.activo}" />
+                            <h:selectOneMenu class="form-control" id="tipoProf" value="#{profesorController.profesor.tipoprof}">
+                            <f:selectItem itemLabel="Seleccione un tipo de profesor" itemValue="" />
+                            <f:selectItem itemLabel="Profesor tipo A" itemValue="A" />
+                            <f:selectItem itemLabel="Profesor tipo B" itemValue="B" />
+                            <f:selectItem itemLabel="Profesor tipo C" itemValue="C" />
+                            <f:selectItem itemLabel="Profesor tipo D" itemValue="D" />
+                            </h:selectOneMenu>                        
+                        
+                        
                         </h:panelGrid>
+                        <center>
                         <div class="botones">
                             <h:commandButton value ="Buscar"  class="btn btn-primary my-2 my-sm-0" action="#{profesorController.buscar()}" />
-                            <h:commandButton value ="Guardar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.guardar()}" />
-                            <h:commandButton value ="Editar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.modificar()}"/>
                             <h:commandButton value ="Activar" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.activaProfesor()}"/>
                             <h:commandButton value ="Desactiva" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.desactivaProfesor()}"/>
                             <h:commandButton value ="Eliminar" class="btn btn-danger my-2 my-sm-0" action="#{profesorController.eliminar()}"/>
+                            <h:commandButton value ="Muestra todo" class="btn btn-primary my-2 my-sm-0" action="#{profesorController.muestraTodo()}"/>
                         </div>
-
+                        </center>
                         <p:dataTable id="datos" value="#{profesorController.getLista()}" var="mat" rendered="true">
 
                             <p:column headerText="Id" class="id-col">

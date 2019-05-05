@@ -51,11 +51,11 @@
 
 
                                 <h:outputLabel value="Id de la sala:"  />
-                                <h:selectOneMenu id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
+                                <h:selectOneMenu id="nombresala" class="form-control" value ="#{espacioCuluralController.tmpSala}" style="width: 160px; " >
                                     <f:selectItems  value="#{salaculturalController.idSalas()}" />
                                 </h:selectOneMenu>
 
-                                <p:outputLabel for="event" value="Select Event:" />
+                                <p:outputLabel for="event" value="Fecha:" />
                                 <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
                                     <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
                                 </p:calendar>
@@ -99,6 +99,10 @@
 
                                 <p:column headerText="Confirmacion">
                                     <h:outputText value="#{mat.reservado}"/>
+                                </p:column>
+                           
+                                <p:column headerText="Nombre del dueño">
+                                    <h:outputText value="#{mat.idprofesor.nombre}"/>
                                 </p:column>
 
 
