@@ -30,8 +30,10 @@
                         <h3>Administrar Profesores</h3>
                         <h5>Filtrar por:</h5>
                         <h:panelGrid columns= "2" class="entradas">
+                           
                             <h:outputText class="label" value = "id"/>
-                            <p:inputText id="profesor_id" class="form-control" value ="#{profesorController.profesor.idprofesor}" />
+                            <p:inputText id="profesor_id"  value ="#{profesorController.profesor.idprofesor}" />
+                            
                             <h:outputText class="label" value = "Nombre"/>
                             <p:inputText id="profesor_nombre"  value ="#{profesorController.profesor.nombre}" />
                             <h:outputText class="label" value = "Correo"/>

@@ -5,8 +5,8 @@
  */
 package com.ingenieria.biblioteca.controlador;
 
-import com.ingenieria.biblioteca.controllador.exceptions.IllegalOrphanException;
-import com.ingenieria.biblioteca.controllador.exceptions.NonexistentEntityException;
+import com.ingenieria.biblioteca.controlador.exceptions.IllegalOrphanException;
+import com.ingenieria.biblioteca.controlador.exceptions.NonexistentEntityException;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
@@ -230,6 +230,7 @@ public class SalaculturalJpaController implements Serializable {
         }
     }
     
+    
         public void guardar(Salacultural s){
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
@@ -253,7 +254,5 @@ public class SalaculturalJpaController implements Serializable {
 	em.getTransaction().commit();
         em.close();
     }
-    
-    
     
 }

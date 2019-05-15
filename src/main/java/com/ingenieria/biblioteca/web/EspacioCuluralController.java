@@ -6,9 +6,11 @@
 package com.ingenieria.biblioteca.web;
 
 import com.ingenieria.biblioteca.controlador.EspacioculturalJpaController;
+import com.ingenieria.biblioteca.controlador.ProfesorJpaController;
 import com.ingenieria.biblioteca.controlador.SalaculturalJpaController;
 import com.ingenieria.biblioteca.modelo.Espaciocultural;
 import com.ingenieria.biblioteca.modelo.PersistenceUtil;
+import com.ingenieria.biblioteca.modelo.Profesor;
 import com.ingenieria.biblioteca.modelo.Salacultural;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,23 +38,25 @@ import org.primefaces.model.ScheduleModel;
 public class EspacioCuluralController {
 
     EspacioculturalJpaController jpaEspacio;
-
+    ProfesorJpaController jpaProfesor;
     SalaculturalJpaController jpaSala;
 
     Salacultural sala;
     Espaciocultural espacio;
-    
+    Profesor profesor;
     
     
     List<Salacultural> salas;
     List<Espaciocultural> espacios;
-
+    List<Profesor> profesores;
+    
     private ScheduleModel eventModel;
 
     private ScheduleModel lazyEventModel;
 
     private ScheduleEvent event;
-
+    
+    int tmpProf;
     int tmpSala;
 
     /**
@@ -62,6 +66,12 @@ public class EspacioCuluralController {
         jpaEspacio = new EspacioculturalJpaController(PersistenceUtil.getEntityManagerFactory());
         espacio = new Espaciocultural();
         espacios = jpaEspacio.findEspacioculturalEntities();
+        
+        jpaProfesor = new ProfesorJpaController(PersistenceUtil.getEntityManagerFactory());
+        profesor = new Profesor();
+        profesores = jpaProfesor.findProfesorEntities();
+        
+        
 
         jpaSala = new SalaculturalJpaController(PersistenceUtil.getEntityManagerFactory());
         sala = new Salacultural();
@@ -70,13 +80,39 @@ public class EspacioCuluralController {
         event = new DefaultScheduleEvent();
 
         lazyEventModel = new LazyScheduleModel();
-
+      
+        tmpProf = 0;
         tmpSala = 0;
 
     }
 
+    
     public EspacioculturalJpaController getJpaEspacio() {
         return jpaEspacio;
+    }
+
+    public ProfesorJpaController getJpaProfesor() {
+        return jpaProfesor;
+    }
+
+    public void setJpaProfesor(ProfesorJpaController jpaProfesor) {
+        this.jpaProfesor = jpaProfesor;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public List<Profesor> getProfesores() {
+        return profesores;
+    }
+
+    public void setProfesores(List<Profesor> profesores) {
+        this.profesores = profesores;
     }
 
     public void setJpaEspacio(EspacioculturalJpaController jpaEspacio) {
@@ -150,7 +186,16 @@ public class EspacioCuluralController {
     public int getTmpSala() {
         return tmpSala;
     }
-
+    
+    public int getTempProf(){
+        return tmpProf;
+        
+    }
+    
+    public void setTmpProf(int tmpProf){
+        this.tmpProf = tmpProf;
+    }
+    
     public void setTmpSala(int tmpSala) {
         this.tmpSala = tmpSala;
     }
@@ -158,7 +203,10 @@ public class EspacioCuluralController {
     public void reserva() {
         if(existeSala(tmpSala)){
             if(!coincidenEventos()){
+           
             espacio.setIdsala(jpaSala.findSalacultural(tmpSala));
+            espacio.setIdprofesor(jpaProfesor.findProfesor(tmpProf));
+            System.out.println("Estoy intentando guardar");
             jpaEspacio.guardar(espacio);
         }
         }
@@ -303,7 +351,17 @@ public class EspacioCuluralController {
         espacios = jpaEspacio.findEspacioculturalEntities();
     }
     
-    
+ 
+    public List<Espaciocultural> listaUsuario(int id){
+        List<Espaciocultural> tmp = jpaEspacio.findEspacioculturalEntities();
+        for(Espaciocultural e : tmp){
+            if(e.getIdprofesor().getIdprofesor() == id){
+                tmp.add(e);
+            }   
+        }
+        return tmp;
+        
+    }
     
     
 }

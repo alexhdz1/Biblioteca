@@ -5,13 +5,14 @@
  */
 package com.ingenieria.biblioteca.controlador;
 
-import com.ingenieria.biblioteca.controllador.exceptions.NonexistentEntityException;
+import com.ingenieria.biblioteca.controlador.exceptions.NonexistentEntityException;
 import com.ingenieria.biblioteca.modelo.Espaciocultural;
 import java.io.Serializable;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import com.ingenieria.biblioteca.modelo.Profesor;
 import com.ingenieria.biblioteca.modelo.Salacultural;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,12 +38,21 @@ public class EspacioculturalJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Profesor idprofesor = espaciocultural.getIdprofesor();
+            if (idprofesor != null) {
+                idprofesor = em.getReference(idprofesor.getClass(), idprofesor.getIdprofesor());
+                espaciocultural.setIdprofesor(idprofesor);
+            }
             Salacultural idsala = espaciocultural.getIdsala();
             if (idsala != null) {
                 idsala = em.getReference(idsala.getClass(), idsala.getIdsala());
                 espaciocultural.setIdsala(idsala);
             }
             em.persist(espaciocultural);
+            if (idprofesor != null) {
+                idprofesor.getEspacioculturalCollection().add(espaciocultural);
+                idprofesor = em.merge(idprofesor);
+            }
             if (idsala != null) {
                 idsala.getEspacioculturalCollection().add(espaciocultural);
                 idsala = em.merge(idsala);
@@ -61,13 +71,27 @@ public class EspacioculturalJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Espaciocultural persistentEspaciocultural = em.find(Espaciocultural.class, espaciocultural.getIdevento());
+            Profesor idprofesorOld = persistentEspaciocultural.getIdprofesor();
+            Profesor idprofesorNew = espaciocultural.getIdprofesor();
             Salacultural idsalaOld = persistentEspaciocultural.getIdsala();
             Salacultural idsalaNew = espaciocultural.getIdsala();
+            if (idprofesorNew != null) {
+                idprofesorNew = em.getReference(idprofesorNew.getClass(), idprofesorNew.getIdprofesor());
+                espaciocultural.setIdprofesor(idprofesorNew);
+            }
             if (idsalaNew != null) {
                 idsalaNew = em.getReference(idsalaNew.getClass(), idsalaNew.getIdsala());
                 espaciocultural.setIdsala(idsalaNew);
             }
             espaciocultural = em.merge(espaciocultural);
+            if (idprofesorOld != null && !idprofesorOld.equals(idprofesorNew)) {
+                idprofesorOld.getEspacioculturalCollection().remove(espaciocultural);
+                idprofesorOld = em.merge(idprofesorOld);
+            }
+            if (idprofesorNew != null && !idprofesorNew.equals(idprofesorOld)) {
+                idprofesorNew.getEspacioculturalCollection().add(espaciocultural);
+                idprofesorNew = em.merge(idprofesorNew);
+            }
             if (idsalaOld != null && !idsalaOld.equals(idsalaNew)) {
                 idsalaOld.getEspacioculturalCollection().remove(espaciocultural);
                 idsalaOld = em.merge(idsalaOld);
@@ -104,6 +128,11 @@ public class EspacioculturalJpaController implements Serializable {
                 espaciocultural.getIdevento();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The espaciocultural with id " + id + " no longer exists.", enfe);
+            }
+            Profesor idprofesor = espaciocultural.getIdprofesor();
+            if (idprofesor != null) {
+                idprofesor.getEspacioculturalCollection().remove(espaciocultural);
+                idprofesor = em.merge(idprofesor);
             }
             Salacultural idsala = espaciocultural.getIdsala();
             if (idsala != null) {
@@ -143,10 +172,6 @@ public class EspacioculturalJpaController implements Serializable {
         }
     }
 
-    
-    
-    
-    
     public Espaciocultural findEspaciocultural(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -156,11 +181,6 @@ public class EspacioculturalJpaController implements Serializable {
         }
     }
 
-    
-    
-    
-    
-    
     public int getEspacioculturalCount() {
         EntityManager em = getEntityManager();
         try {
@@ -173,8 +193,7 @@ public class EspacioculturalJpaController implements Serializable {
             em.close();
         }
     }
-      
-        public void guardar(Espaciocultural e){
+       public void guardar(Espaciocultural e){
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
         em.persist(e);
@@ -218,12 +237,16 @@ public class EspacioculturalJpaController implements Serializable {
 		    jpl = jpl + " WHERE m.nombreevento LIKE '%" + mat.getNombreevento() + "%'";
 		}
             }
+       
+
 
             
 	}
 	Query query = em.createQuery(jpl);
 	return query.getResultList();
     }
+    
+    
     
     
     

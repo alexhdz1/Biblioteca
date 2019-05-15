@@ -107,13 +107,18 @@ public class Profesor implements Serializable {
         return idprofesor;
     }
 
-    public void setIdprofesor(Integer idprofesor) {
+    public void setIdprof(Integer idprofesor) {
         this.idprofesor = idprofesor;
     }
 
     public String getNombre() {
         return nombre;
     }
+    
+    public void cambiaId(int id){
+        this.idprofesor = id;
+    }
+    
 
     public void setNombre(String nombre) {
         this.nombre = nombre;

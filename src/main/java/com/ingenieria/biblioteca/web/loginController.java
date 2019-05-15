@@ -14,6 +14,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -31,7 +32,11 @@ public class loginController {
     private String correo;
     private String contra;
     private String estado;
+    public FacesContext fc ; 
+    public HttpSession sesion ; 
 
+    
+    
 
     
     /**
@@ -41,9 +46,16 @@ public class loginController {
         jpaProfesor = new ProfesorJpaController(PersistenceUtil.getEntityManagerFactory());
         jpaAdministrador = new AdministradorJpaController(PersistenceUtil.getEntityManagerFactory());
         this.estado = "no presionado";
+        fc = FacesContext.getCurrentInstance();
+        sesion = (HttpSession) fc.getExternalContext().getSession(true);
+
+ 
+            
     }
 
-    
+    public int getIDSesion(){
+        return  (int) this.sesion.getAttribute("att");
+    }
     public String getCorreo() {
         return correo;
     }
@@ -90,9 +102,17 @@ public class loginController {
         } else if (contra.equals(miAdmin.getContrasena())) {
             
             context.getExternalContext().getSessionMap().put("nombre", miAdmin.getCorreo());
+                
             id = miAdmin.getIdadministrador();
+        
+            System.out.println("Antes");
+            
+            sesion.setAttribute("att", miAdmin.getIdadministrador());
+            System.out.println(sesion.getAttribute("att"));
+            System.out.println("Despues");
             System.out.println("+++++++++++++++++++++++++++++"+context);
-                id = miAdmin.getIdadministrador();                
+            
+                     
                redirecciona("/faces/administrarProfesores.xhtml");
             
            
@@ -130,7 +150,12 @@ public class loginController {
             
             context.getExternalContext().getSessionMap().put("profesor", miProfesor.getCorreo());
             id = miProfesor.getIdprofesor();
+            sesion.setAttribute("att", miProfesor.getIdprofesor());
             System.out.println("+++++++++++++++++++++++++++++"+context);   
+            System.out.println("Antes");   
+            System.out.println(sesion.getAttribute("att"));
+            System.out.println("Despues");
+            
             redirecciona("/faces/principalProfesor.xhtml");
             
             
@@ -217,4 +242,5 @@ public void imprimeId(){
    
     System.err.println(id);
 }
+
 }

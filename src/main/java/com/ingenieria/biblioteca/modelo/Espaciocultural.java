@@ -146,6 +146,9 @@ public class Espaciocultural implements Serializable {
     public Profesor getIdprofesor() {
         return idprofesor;
     }
+    
+  
+    
 
     public void setIdprofesor(Profesor idprofesor) {
         this.idprofesor = idprofesor;

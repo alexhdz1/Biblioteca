@@ -32,21 +32,16 @@
                             <h:panelGrid columns= "2" class="entradas">
 
                                 <h:outputLabel value="Id Evento:"  />
-                                <p:inputText id="idevento" requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.idevento}"/>
+                                <p:inputText id="idnambre"  requiredMessage="Rellenar campo" value="#{espacioCuluralController.espacio.idevento}"/>
 
+                           
                                 <h:outputLabel value="Nombre del evento:"  />
-                                <p:inputText id="nombreevento" value="#{espacioCuluralController.espacio.nombreevento}"/>
+                                <p:inputText id="idevento" value="#{espacioCuluralController.espacio.nombreevento}"/>
+                
 
-
-                                <h:outputLabel value="Id de la sala:"  />
-                                <h:selectOneMenu class="form-control"  id="nombresala" value ="#{espacioCuluralController.tmpSala}" style="width: 280px; " >
-                                    <f:selectItem itemLabel="Seleccione un id de Sala" itemValue="" />
-                                    <f:selectItems  value="#{salaculturalController.idSalas()}" />
-                                </h:selectOneMenu>
-
-                                <h:outputLabel for="event" value="Fecha:" />
+                                <h:outputLabel for="fecha" value="Fecha:" />
                                 
-                                <p:calendar id="event" value="#{espacioCuluralController.espacio.fecha}">
+                                <p:calendar id="fecha" value="#{espacioCuluralController.espacio.fecha}">
                                     <p:ajax event="dateSelect" listener="#{espacioCuluralController.onDateSelect}"  />
                                 </p:calendar>
                                 
@@ -86,6 +81,10 @@
 
                                 <p:column headerText="Confirmacion">
                                     <h:outputText value="#{mat.reservado}"/>
+                                </p:column>
+
+                                <p:column headerText="Id Profesor">
+                                    <h:outputText value="#{mat.idprofesor.idprofesor}"/>
                                 </p:column>
                                 
                             </p:dataTable>                      
